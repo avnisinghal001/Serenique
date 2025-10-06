@@ -9,7 +9,8 @@ class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
 
   @override
-  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+  State<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
@@ -39,7 +40,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
           _isVerified = true;
         });
         timer.cancel();
-        
+
         // Navigate to home screen after verification
         if (mounted) {
           Navigator.of(context).pushReplacement(
@@ -59,7 +60,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Please wait $waitTime seconds before requesting another email.'),
+              content: Text(
+                'Please wait $waitTime seconds before requesting another email.',
+              ),
               backgroundColor: Colors.orange,
               duration: const Duration(seconds: 3),
             ),
@@ -80,7 +83,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Verification email sent! Check your inbox and spam folder.'),
+            content: Text(
+              'Verification email sent! Check your inbox and spam folder.',
+            ),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 5),
           ),
@@ -89,7 +94,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     } catch (e) {
       print('Error sending verification email: $e');
       String errorMessage = e.toString();
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -118,7 +123,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     final userEmail = _authService.currentUser?.email ?? '';
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -143,7 +148,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              
+
               // Title
               const Text(
                 'Verify Your Email',
@@ -155,7 +160,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              
+
               // Description
               Text(
                 'We\'ve sent a verification email to:\n$userEmail',
@@ -167,15 +172,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-              
+
               // Instructions
               const Text(
                 'Please check your email and click the verification link to activate your account.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey, height: 1.5),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
@@ -189,22 +190,19 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              
+
               // Loading indicator
               if (!_isVerified) ...[
                 const CircularProgressIndicator(),
                 const SizedBox(height: 16),
                 const Text(
                   'Waiting for verification...',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
-              
+
               const SizedBox(height: 32),
-              
+
               // Resend button
               SizedBox(
                 width: double.infinity,
@@ -236,21 +234,18 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         ),
                 ),
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Sign out button
               TextButton(
                 onPressed: _signOut,
                 child: const Text(
                   'Use Different Account',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
                 ),
               ),
-              
+
               // Temporary skip button for testing
               const SizedBox(height: 16),
               Container(
@@ -273,10 +268,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     const SizedBox(height: 8),
                     const Text(
                       'Firebase has temporarily blocked email requests. Wait 10 minutes or use skip for testing.',
-                      style: TextStyle(
-                        color: Colors.orange,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: Colors.orange, fontSize: 12),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
@@ -284,36 +276,39 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       onPressed: () {
                         // For testing purposes - skip verification
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
                         );
                       },
                       child: const Text(
                         'Skip Verification (Testing Only)',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: Colors.red, fontSize: 12),
                       ),
                     ),
                   ],
                 ),
               ),
-              
+
               // Debug button
               const SizedBox(height: 8),
               TextButton.icon(
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const EmailVerificationDebugScreen()),
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const EmailVerificationDebugScreen(),
+                    ),
                   );
                 },
-                icon: const Icon(Icons.bug_report, size: 16, color: Colors.grey),
+                icon: const Icon(
+                  Icons.bug_report,
+                  size: 16,
+                  color: Colors.grey,
+                ),
                 label: const Text(
                   'Debug Info',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ),
             ],

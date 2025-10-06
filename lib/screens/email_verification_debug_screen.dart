@@ -5,10 +5,12 @@ class EmailVerificationDebugScreen extends StatefulWidget {
   const EmailVerificationDebugScreen({super.key});
 
   @override
-  State<EmailVerificationDebugScreen> createState() => _EmailVerificationDebugScreenState();
+  State<EmailVerificationDebugScreen> createState() =>
+      _EmailVerificationDebugScreenState();
 }
 
-class _EmailVerificationDebugScreenState extends State<EmailVerificationDebugScreen> {
+class _EmailVerificationDebugScreenState
+    extends State<EmailVerificationDebugScreen> {
   final AuthService _authService = AuthService();
   String _debugInfo = '';
 
@@ -21,7 +23,8 @@ class _EmailVerificationDebugScreenState extends State<EmailVerificationDebugScr
   void _gatherDebugInfo() {
     final user = _authService.currentUser;
     setState(() {
-      _debugInfo = '''
+      _debugInfo =
+          '''
 Debug Information:
 ==================
 User Email: ${user?.email ?? 'No user'}
@@ -58,10 +61,7 @@ Check:
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $e'),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
         );
       }
     }
@@ -88,10 +88,7 @@ Check:
                 ),
                 child: SelectableText(
                   _debugInfo,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
                 ),
               ),
               const SizedBox(height: 16),

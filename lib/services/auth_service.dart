@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance; //underscore means only this class can access it
+  final FirebaseAuth _auth =
+      FirebaseAuth.instance; //underscore means only this class can access it
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Get current user
@@ -34,7 +35,9 @@ class AuthService {
 
   // Sign in with email and password
   Future<UserCredential?> signInWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -48,7 +51,10 @@ class AuthService {
 
   // Register with email and password
   Future<UserCredential?> registerWithEmailAndPassword(
-      String email, String password, String fullName) async {
+    String email,
+    String password,
+    String fullName,
+  ) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -63,7 +69,9 @@ class AuthService {
         await result.user?.sendEmailVerification();
         print('Verification email sent to: ${result.user?.email}');
       } catch (emailError) {
-        print('Warning: Could not send verification email immediately: $emailError');
+        print(
+          'Warning: Could not send verification email immediately: $emailError',
+        );
         // Don't throw error here, let user resend manually if needed
       }
 

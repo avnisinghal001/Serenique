@@ -11,19 +11,17 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthService authService = AuthService();
-    
+
     return StreamBuilder<User?>(
       stream: authService.authStateChanges,
       builder: (context, snapshot) {
         // Show loading indicator while waiting for auth state
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+            body: Center(child: CircularProgressIndicator()),
           );
         }
-        
+
         // If user is logged in, check email verification
         if (snapshot.hasData && snapshot.data != null) {
           final user = snapshot.data!;
@@ -33,7 +31,7 @@ class AuthWrapper extends StatelessWidget {
             return const EmailVerificationScreen();
           }
         }
-        
+
         // If user is not logged in, show sign in screen
         return const SignInScreen();
       },
