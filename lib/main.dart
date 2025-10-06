@@ -4,7 +4,7 @@ import 'firebase_options.dart';
 import 'widgets/auth_wrapper.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); //Always call this BEFORE any Firebase/native operations in main()
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

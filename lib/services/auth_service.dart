@@ -2,14 +2,35 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance; //underscore means only this class can access it
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Get current user
   User? get currentUser => _auth.currentUser;
 
+  // Check if current user's email is verified
+  bool get isEmailVerified => _auth.currentUser?.emailVerified ?? false;
+
   // Auth state changes stream
   Stream<User?> get authStateChanges => _auth.authStateChanges();
+
+  // Reload current user to get updated verification status
+  Future<void> reloadUser() async {
+    await _auth.currentUser?.reload();
+  }
+
+  // Send verification email with rate limiting
+  Future<void> sendVerificationEmail() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } catch (e) {
+      if (e.toString().contains('too-many-requests')) {
+        throw 'Too many email requests. Please wait a few minutes before trying again.';
+      } else {
+        throw e.toString();
+      }
+    }
+  }
 
   // Sign in with email and password
   Future<UserCredential?> signInWithEmailAndPassword(
@@ -37,6 +58,15 @@ class AuthService {
       // Update display name
       await result.user?.updateDisplayName(fullName);
 
+      // Send email verification with delay to avoid rate limiting
+      try {
+        await result.user?.sendEmailVerification();
+        print('Verification email sent to: ${result.user?.email}');
+      } catch (emailError) {
+        print('Warning: Could not send verification email immediately: $emailError');
+        // Don't throw error here, let user resend manually if needed
+      }
+
       // Create user document in Firestore
       await _createUserDocument(result.user!, fullName);
 
@@ -60,8 +90,16 @@ class AuthService {
   Future<void> resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
+      print('Password reset email sent to: $email');
     } on FirebaseAuthException catch (e) {
+      print('Error sending password reset email: ${e.code}');
+      if (e.code == 'too-many-requests') {
+        throw 'Too many requests. Please wait a few minutes before trying again.';
+      }
       throw _handleAuthException(e);
+    } catch (e) {
+      print('Unexpected error sending password reset: $e');
+      throw 'Failed to send password reset email. Please try again.';
     }
   }
 

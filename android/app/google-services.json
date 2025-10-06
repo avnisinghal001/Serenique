@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2957169306",
+    "project_id": "serenique-avni",
+    "storage_bucket": "serenique-avni.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2957169306:android:3f434ecf146b93c96a0523",
+        "android_client_info": {
+          "package_name": "com.example.serenique"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDchZu7tmPPuzuXp5pCM8_q9Ho_Mvs9qx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

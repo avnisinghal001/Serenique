@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import '../screens/sign_in_screen.dart';
 import '../screens/home_screen.dart';
+import '../screens/email_verification_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -23,9 +24,14 @@ class AuthWrapper extends StatelessWidget {
           );
         }
         
-        // If user is logged in, show home screen
+        // If user is logged in, check email verification
         if (snapshot.hasData && snapshot.data != null) {
-          return const HomeScreen();
+          final user = snapshot.data!;
+          if (user.emailVerified) {
+            return const HomeScreen();
+          } else {
+            return const EmailVerificationScreen();
+          }
         }
         
         // If user is not logged in, show sign in screen

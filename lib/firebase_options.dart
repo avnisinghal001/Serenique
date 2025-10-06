@@ -35,45 +35,47 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCwiWgKcRhsFGvvn4IGxUBs7VFcJwTgTzw',
-    appId: '1:2957169306:web:your-web-app-id', // You'll need to get this from Firebase Console
+    appId: '1:2957169306:web:87da992e2115a7cb6a0523',
     messagingSenderId: '2957169306',
     projectId: 'serenique-avni',
     authDomain: 'serenique-avni.firebaseapp.com',
-    storageBucket: 'serenique-avni.appspot.com',
+    storageBucket: 'serenique-avni.firebasestorage.app',
+    measurementId: 'G-13TV3PG6ZK',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCwiWgKcRhsFGvvn4IGxUBs7VFcJwTgTzw',
-    appId: '1:2957169306:android:your-android-app-id', // You'll need to get this from Firebase Console
+    apiKey: 'AIzaSyDchZu7tmPPuzuXp5pCM8_q9Ho_Mvs9qx8',
+    appId: '1:2957169306:android:3f434ecf146b93c96a0523',
     messagingSenderId: '2957169306',
     projectId: 'serenique-avni',
-    storageBucket: 'serenique-avni.appspot.com',
+    storageBucket: 'serenique-avni.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCwiWgKcRhsFGvvn4IGxUBs7VFcJwTgTzw',
-    appId: '1:2957169306:ios:your-ios-app-id', // You'll need to get this from Firebase Console
+    apiKey: 'AIzaSyA3pXcuJo8aHkkxuhxCezgDRVHzIHcIJOo',
+    appId: '1:2957169306:ios:994466c04363f5376a0523',
     messagingSenderId: '2957169306',
     projectId: 'serenique-avni',
-    storageBucket: 'serenique-avni.appspot.com',
+    storageBucket: 'serenique-avni.firebasestorage.app',
     iosBundleId: 'com.example.serenique',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCwiWgKcRhsFGvvn4IGxUBs7VFcJwTgTzw',
-    appId: '1:2957169306:ios:your-macos-app-id', // You'll need to get this from Firebase Console
+    apiKey: 'AIzaSyA3pXcuJo8aHkkxuhxCezgDRVHzIHcIJOo',
+    appId: '1:2957169306:ios:994466c04363f5376a0523',
     messagingSenderId: '2957169306',
     projectId: 'serenique-avni',
-    storageBucket: 'serenique-avni.appspot.com',
+    storageBucket: 'serenique-avni.firebasestorage.app',
     iosBundleId: 'com.example.serenique',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyCwiWgKcRhsFGvvn4IGxUBs7VFcJwTgTzw',
-    appId: '1:2957169306:web:your-windows-app-id', // You'll need to get this from Firebase Console
+    appId: '1:2957169306:web:6e34e3cf84e47c396a0523',
     messagingSenderId: '2957169306',
     projectId: 'serenique-avni',
     authDomain: 'serenique-avni.firebaseapp.com',
-    storageBucket: 'serenique-avni.appspot.com',
+    storageBucket: 'serenique-avni.firebasestorage.app',
+    measurementId: 'G-4HM63ZCJ0K',
   );
 }

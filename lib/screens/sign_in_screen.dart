@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import 'sign_up_screen.dart';
 import 'forgot_password_screen.dart';
@@ -13,11 +12,12 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey =
+      GlobalKey<FormState>(); // A remote control for your entire form
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
-  
+
   bool _isLoading = false;
   bool _obscurePassword = true;
 
@@ -40,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
         _emailController.text.trim(),
         _passwordController.text,
       );
-      
+
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -49,10 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
         );
       }
     } finally {
@@ -67,15 +64,22 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Provide body area
       backgroundColor: Colors.white,
       body: SafeArea(
+        // Ensures the content is always visible
         child: SingleChildScrollView(
+          // Makes content scrollable
           padding: const EdgeInsets.all(24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // Arranges children vertically
+            crossAxisAlignment: CrossAxisAlignment
+                .start, // crossAxisAlignment: How children align horizontally
+
+            // CrossAxisAlignment.start: Align to left side
             children: [
-              const SizedBox(height: 60),
-              
+              const SizedBox(height: 60), // 60 from top of the screen
+
               // Welcome Text
               const Text(
                 'Welcome Back',
@@ -85,19 +89,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   color: Colors.black87,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 8), // 8 between title and subtitle
               const Text(
                 'Sign in to your account',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 48),
 
               // Sign In Form
               Form(
-                key: _formKey,
+                key: _formKey, // Connects to our GlobalKey for validation
                 child: Column(
                   children: [
                     // Email Field
@@ -117,14 +118,19 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.blue, width: 2),
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2, // Border thickens
+                          ),
                         ),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
                         }
-                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                        if (!RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                        ).hasMatch(value)) {
                           return 'Please enter a valid email';
                         }
                         return null;
@@ -142,7 +148,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         prefixIcon: const Icon(Icons.lock_outlined),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                            _obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -159,7 +167,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.blue, width: 2),
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -176,12 +187,13 @@ class _SignInScreenState extends State<SignInScreen> {
 
                     // Forgot Password Link
                     Align(
-                      alignment: Alignment.centerRight,
+                      alignment: Alignment.centerRight, // Child widget to the right side
                       child: TextButton(
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const ForgotPasswordScreen(),
+                              builder: (context) =>
+                                  const ForgotPasswordScreen(),
                             ),
                           );
                         },
@@ -195,7 +207,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                     // Sign In Button
                     SizedBox(
-                      width: double.infinity,
+                      width: double.infinity, // Takes full available width
                       height: 50,
                       child: ElevatedButton(
                         onPressed: _isLoading ? null : _signIn,
@@ -207,7 +219,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         child: _isLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
                             : const Text(
                                 'Sign In',
                                 style: TextStyle(
@@ -220,7 +234,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 48),
 
               // Sign Up Link
