@@ -1,0 +1,35 @@
+name: serenique_fresh_start
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Packages from your old project
+  cupertino_icons: ^1.0.8
+  mailer: ^6.0.1
+  workmanager: ^0.5.1
+  shared_preferences: ^2.2.2
+  google_fonts: ^6.1.0
+  #firebase_core: ^2.31.0
+  #cloud_firestore: ^4.17.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Your project's assets
+  assets:
+    - assets/logo.png
+    - assets/google_icon.png
+    - assets/mental_health.png

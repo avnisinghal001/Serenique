@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "109376900105",
+    "project_id": "serenique-f58ce",
+    "storage_bucket": "serenique-f58ce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109376900105:android:1967d07c626ff0dabf7cd8",
+        "android_client_info": {
+          "package_name": "com.example.serenique_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0qzU9QHgeHL7NscE8-752d9ANSAFvgJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109376900105:android:9f79cab6d7d5e2e4bf7cd8",
+        "android_client_info": {
+          "package_name": "com.example.serenique_fresh_start"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0qzU9QHgeHL7NscE8-752d9ANSAFvgJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
