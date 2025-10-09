@@ -12,6 +12,9 @@ dependencies:
   firebase_core: ^3.3.0
   firebase_auth: ^5.1.4
   cloud_firestore: ^5.2.1
+  google_fonts: ^6.1.0
+  path_provider_windows: ^2.3.0
+  path_provider_linux: ^2.2.1
 
 dev_dependencies:
   flutter_test:

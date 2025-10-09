@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
+import '../utils/app_colors.dart';
 import 'home_screen.dart';
 import 'sign_in_screen.dart';
 import 'email_verification_debug_screen.dart';
@@ -125,7 +127,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     final userEmail = _authService.currentUser?.email ?? '';
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.lightBeige,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -138,24 +140,24 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
+                  color: AppColors.sageGreen.withOpacity(0.3),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.email_outlined,
                   size: 60,
-                  color: Colors.blue,
+                  color: AppColors.forestGreen,
                 ),
               ),
               const SizedBox(height: 32),
 
               // Title
-              const Text(
+              Text(
                 'Verify Your Email',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: AppColors.darkGreen,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -164,9 +166,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               // Description
               Text(
                 'We\'ve sent a verification email to:\n$userEmail',
-                style: const TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: AppColors.deepGreen,
                   height: 1.5,
                 ),
                 textAlign: TextAlign.center,
@@ -174,15 +176,19 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               const SizedBox(height: 24),
 
               // Instructions
-              const Text(
+              Text(
                 'Please check your email and click the verification link to activate your account.',
-                style: TextStyle(fontSize: 14, color: Colors.grey, height: 1.5),
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: AppColors.deepGreen,
+                  height: 1.5,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 '⚠️ Check your spam/junk folder if you don\'t see the email',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: Colors.orange,
                   fontWeight: FontWeight.w500,
@@ -193,11 +199,16 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               // Loading indicator
               if (!_isVerified) ...[
-                const CircularProgressIndicator(),
+                CircularProgressIndicator(
+                  color: AppColors.forestGreen,
+                ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Waiting for verification...',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: AppColors.deepGreen,
+                  ),
                 ),
               ],
 
@@ -210,26 +221,26 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 child: OutlinedButton(
                   onPressed: _isResending ? null : _resendVerificationEmail,
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.blue),
+                    side: BorderSide(color: AppColors.forestGreen),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   child: _isResending
-                      ? const SizedBox(
+                      ? SizedBox(
                           height: 20,
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.blue,
+                            color: AppColors.forestGreen,
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'Resend Verification Email',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 16,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                            color: AppColors.forestGreen,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                 ),
@@ -240,9 +251,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               // Sign out button
               TextButton(
                 onPressed: _signOut,
-                child: const Text(
+                child: Text(
                   'Use Different Account',
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                  style: GoogleFonts.poppins(
+                    color: AppColors.deepGreen,
+                    fontSize: 14,
+                  ),
                 ),
               ),
 
@@ -252,23 +266,26 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.orange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.orange.withOpacity(0.3)),
                 ),
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       '⚠️ Firebase Rate Limiting Active',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: Colors.orange,
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       'Firebase has temporarily blocked email requests. Wait 10 minutes or use skip for testing.',
-                      style: TextStyle(color: Colors.orange, fontSize: 12),
+                      style: GoogleFonts.poppins(
+                        color: Colors.orange,
+                        fontSize: 12,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
@@ -281,9 +298,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Skip Verification (Testing Only)',
-                        style: TextStyle(color: Colors.red, fontSize: 12),
+                        style: GoogleFonts.poppins(
+                          color: Colors.red,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ],
@@ -301,14 +321,17 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     ),
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.bug_report,
                   size: 16,
-                  color: Colors.grey,
+                  color: AppColors.deepGreen,
                 ),
-                label: const Text(
+                label: Text(
                   'Debug Info',
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  style: GoogleFonts.poppins(
+                    color: AppColors.deepGreen,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],

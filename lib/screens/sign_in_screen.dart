@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
+import '../utils/app_colors.dart';
+import '../widgets/pop_button.dart';
 import 'sign_up_screen.dart';
 import 'forgot_password_screen.dart';
 import 'home_screen.dart';
@@ -64,206 +67,212 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Provide body area
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.lightBeige,
       body: SafeArea(
-        // Ensures the content is always visible
-        child: SingleChildScrollView(
-          // Makes content scrollable
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            // Arranges children vertically
-            crossAxisAlignment: CrossAxisAlignment
-                .start, // crossAxisAlignment: How children align horizontally
-
-            // CrossAxisAlignment.start: Align to left side
-            children: [
-              const SizedBox(height: 60), // 60 from top of the screen
-
-              // Welcome Text
-              const Text(
-                'Welcome Back',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 8), // 8 between title and subtitle
-              const Text(
-                'Sign in to your account',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-              const SizedBox(height: 48),
-
-              // Sign In Form
-              Form(
-                key: _formKey, // Connects to our GlobalKey for validation
-                child: Column(
-                  children: [
-                    // Email Field
-                    TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        hintText: 'Enter your email',
-                        prefixIcon: const Icon(Icons.email_outlined),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Colors.blue,
-                            width: 2, // Border thickens
-                          ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Logo
+                  Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: AppColors.forestGreen.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.spa,
+                      size: 60,
+                      color: AppColors.forestGreen,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    "SERENIQUE",
+                    style: GoogleFonts.poppins(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  Text(
+                    "Shape your mind in a serene way",
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      color: AppColors.deepGreen,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  
+                  // Email Label
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "E-mail",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  // Email Field
+                  TextFormField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: "razvan@artone.studio",
+                      prefixIcon: const Icon(Icons.mail_outline),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: AppColors.forestGreen),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.darkGreen,
+                          width: 2.5,
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        if (!RegExp(
-                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                        ).hasMatch(value)) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
                     ),
-                    const SizedBox(height: 16),
-
-                    // Password Field
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        hintText: 'Enter your password',
-                        prefixIcon: const Icon(Icons.lock_outlined),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Colors.blue,
-                            width: 2,
-                          ),
-                        ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  
+                  // Password Label
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Password",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
-                        }
-                        return null;
-                      },
                     ),
-                    const SizedBox(height: 12),
-
-                    // Forgot Password Link
-                    Align(
-                      alignment: Alignment.centerRight, // Child widget to the right side
-                      child: TextButton(
+                  ),
+                  const SizedBox(height: 8),
+                  // Password Field
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    decoration: InputDecoration(
+                      hintText: "Enter your password",
+                      prefixIcon: const Icon(Icons.vpn_key_rounded),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                        ),
                         onPressed: () {
-                          Navigator.of(context).push(
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: AppColors.forestGreen),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: AppColors.darkGreen,
+                          width: 2.5,
+                        ),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  
+                  // Forgot Password Link
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Forgot password?",
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          color: AppColors.deepGreen,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  
+                  // Log In Button
+                  _isLoading
+                      ? const CircularProgressIndicator(color: AppColors.forestGreen)
+                      : PopButton(
+                          text: "Log in",
+                          onPressed: _signIn,
+                          bgColor: AppColors.forestGreen,
+                          textColor: AppColors.lightBeige,
+                        ),
+                  const SizedBox(height: 20),
+                  
+                  // Sign Up Link
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "New here? ",
+                        style: GoogleFonts.poppins(color: AppColors.darkGreen),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const ForgotPasswordScreen(),
+                              builder: (context) => const SignUpScreen(),
                             ),
                           );
                         },
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Sign In Button
-                    SizedBox(
-                      width: double.infinity, // Takes full available width
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _signIn,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                        child: Text(
+                          "Create an account.",
+                          style: GoogleFonts.poppins(
+                            color: AppColors.forestGreen,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline,
                           ),
                         ),
-                        child: _isLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                            : const Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 48),
-
-              // Sign Up Link
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account? ",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
