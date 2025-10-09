@@ -50,10 +50,13 @@ class AuthService {
   }
 
   // Register with email and password
-  Future<UserCredential?> registerWithEmailAndPassword(
+  Future<Map<String, dynamic>> registerWithEmailAndPassword(
     String email,
     String password,
     String fullName,
+    int age,
+    String gender,
+    String profession,
   ) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -75,23 +78,64 @@ class AuthService {
         // Don't throw error here, let user resend manually if needed
       }
 
-      // Create user document in Firestore
-      await _createUserDocument(result.user!, fullName);
+      // Create user document in Firestore with all details
+      await _createUserDocument(result.user!, fullName, age, gender, profession);
 
-      return result;
+      return {'success': true, 'message': 'Registration successful'};
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+      return {'success': false, 'message': _handleAuthException(e)};
+    } catch (e) {
+      return {'success': false, 'message': e.toString()};
     }
   }
 
   // Create user document in Firestore
-  Future<void> _createUserDocument(User user, String fullName) async {
+  Future<void> _createUserDocument(
+    User user,
+    String fullName,
+    int age,
+    String gender,
+    String profession,
+  ) async {
     await _firestore.collection('users').doc(user.uid).set({
       'uid': user.uid,
       'email': user.email,
       'fullName': fullName,
+      'age': age,
+      'gender': gender,
+      'profession': profession,
       'createdAt': FieldValue.serverTimestamp(),
+      'quizCompleted': false, // Track if user completed onboarding quiz
     });
+  }
+
+  // Save quiz responses to Firestore
+  Future<void> saveQuizResponses(Map<int, String> responses) async {
+    final user = _auth.currentUser;
+    if (user == null) throw 'No user logged in';
+
+    // Convert responses map to List for Firestore
+    final responsesList = responses.entries
+        .map((entry) => {
+              'questionId': entry.key,
+              'answer': entry.value,
+            })
+        .toList();
+
+    await _firestore.collection('users').doc(user.uid).update({
+      'quizResponses': responsesList,
+      'quizCompleted': true,
+      'quizCompletedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  // Check if user has completed the quiz
+  Future<bool> hasCompletedQuiz() async {
+    final user = _auth.currentUser;
+    if (user == null) return false;
+
+    final doc = await _firestore.collection('users').doc(user.uid).get();
+    return doc.data()?['quizCompleted'] ?? false;
   }
 
   // Reset password

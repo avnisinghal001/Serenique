@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 import 'widgets/auth_wrapper.dart';
 import 'utils/app_colors.dart';
+import 'screens/email_verification_screen.dart';
+import 'screens/quiz_screen.dart';
+import 'screens/main_navigation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //Always call this BEFORE any Firebase/native operations in main()
@@ -31,6 +34,11 @@ class MainApp extends StatelessWidget {
         ),
       ),
       home: const AuthWrapper(),
+      routes: {
+        '/email-verification': (context) => const EmailVerificationScreen(),
+        '/quiz': (context) => const QuizScreen(),
+        '/dashboard': (context) => const MainNavigationScreen(),
+      },
     );
   }
 }

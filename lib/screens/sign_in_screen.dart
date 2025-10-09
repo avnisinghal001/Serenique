@@ -5,7 +5,6 @@ import '../utils/app_colors.dart';
 import '../widgets/pop_button.dart';
 import 'sign_up_screen.dart';
 import 'forgot_password_screen.dart';
-import 'home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -39,20 +38,47 @@ class _SignInScreenState extends State<SignInScreen> {
     });
 
     try {
-      await _authService.signInWithEmailAndPassword(
+      final userCredential = await _authService.signInWithEmailAndPassword(
         _emailController.text.trim(),
         _passwordController.text,
       );
 
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
+      if (userCredential != null && mounted) {
+        final user = userCredential.user;
+        
+        // Check email verification status
+        if (user != null && !user.emailVerified) {
+          // Email not verified - show verification screen
+          Navigator.of(context).pushReplacementNamed('/email-verification');
+          return;
+        }
+
+        // Check if quiz is completed
+        final hasCompletedQuiz = await _authService.hasCompletedQuiz();
+        
+        if (mounted) {
+          if (!hasCompletedQuiz) {
+            // Quiz not completed - show quiz screen
+            Navigator.of(context).pushReplacementNamed('/quiz');
+          } else {
+            // Everything done - go to dashboard
+            Navigator.of(context).pushReplacementNamed('/dashboard');
+          }
+        }
       }
+      
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(e.toString()),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
         );
       }
     } finally {

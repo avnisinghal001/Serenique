@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 import '../utils/app_colors.dart';
-import 'home_screen.dart';
+import 'main_navigation_screen.dart';
 import 'sign_in_screen.dart';
 import 'email_verification_debug_screen.dart';
+import 'quiz_screen.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
@@ -43,11 +44,20 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         });
         timer.cancel();
 
-        // Navigate to home screen after verification
+        // Check if user has completed quiz
+        final hasCompletedQuiz = await _authService.hasCompletedQuiz();
+
+        // Navigate to quiz if not completed, otherwise to home screen
         if (mounted) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          );
+          if (hasCompletedQuiz) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+            );
+          } else {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const QuizScreen()),
+            );
+          }
         }
       }
     });
@@ -294,7 +304,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         // For testing purposes - skip verification
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) => const MainNavigationScreen(),
                           ),
                         );
                       },
