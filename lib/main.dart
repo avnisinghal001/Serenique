@@ -5,14 +5,13 @@ import 'firebase_options.dart';
 import 'widgets/auth_wrapper.dart';
 import 'utils/app_colors.dart';
 import 'screens/email_verification_screen.dart';
+import 'screens/welcome_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/main_navigation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //Always call this BEFORE any Firebase/native operations in main()
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MainApp());
 }
 
@@ -28,14 +27,15 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.lightBeige,
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme.apply(
-                bodyColor: AppColors.darkGreen,
-                displayColor: AppColors.darkGreen,
-              ),
+            bodyColor: AppColors.darkGreen,
+            displayColor: AppColors.darkGreen,
+          ),
         ),
       ),
       home: const AuthWrapper(),
       routes: {
         '/email-verification': (context) => const EmailVerificationScreen(),
+        '/welcome': (context) => const WelcomeScreen(),
         '/quiz': (context) => const QuizScreen(),
         '/dashboard': (context) => const MainNavigationScreen(),
       },

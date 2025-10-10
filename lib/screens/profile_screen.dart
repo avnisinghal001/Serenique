@@ -118,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    
+
                     // Profile Avatar
                     TweenAnimationBuilder<double>(
                       duration: const Duration(milliseconds: 600),
@@ -127,10 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       builder: (context, value, child) {
                         return Transform.scale(
                           scale: value,
-                          child: Opacity(
-                            opacity: value,
-                            child: child,
-                          ),
+                          child: Opacity(opacity: value, child: child),
                         );
                       },
                       child: Container(
@@ -155,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    
+
                     // User Info Card
                     Container(
                       width: double.infinity,
@@ -218,9 +215,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                    
+
                     const SizedBox(height: 32),
-                    
+
                     // Stats Placeholder
                     Container(
                       width: double.infinity,
@@ -289,7 +286,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                    
+
                     const SizedBox(height: 24),
                   ],
                 ),

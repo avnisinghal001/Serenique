@@ -79,7 +79,13 @@ class AuthService {
       }
 
       // Create user document in Firestore with all details
-      await _createUserDocument(result.user!, fullName, age, gender, profession);
+      await _createUserDocument(
+        result.user!,
+        fullName,
+        age,
+        gender,
+        profession,
+      );
 
       return {'success': true, 'message': 'Registration successful'};
     } on FirebaseAuthException catch (e) {
@@ -116,10 +122,7 @@ class AuthService {
 
     // Convert responses map to List for Firestore
     final responsesList = responses.entries
-        .map((entry) => {
-              'questionId': entry.key,
-              'answer': entry.value,
-            })
+        .map((entry) => {'questionId': entry.key, 'answer': entry.value})
         .toList();
 
     await _firestore.collection('users').doc(user.uid).update({

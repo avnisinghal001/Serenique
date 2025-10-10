@@ -61,10 +61,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
         pageBuilder: (context, animation, secondaryAnimation) =>
             const MainNavigationScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
+          return FadeTransition(opacity: animation, child: child);
         },
         transitionDuration: const Duration(milliseconds: 400),
       ),
@@ -79,12 +76,15 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30.0,
+              vertical: 40.0,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                
+
                 // Animated emoji/icon with glow effect
                 ScaleTransition(
                   scale: _scaleAnimation,
@@ -275,10 +275,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen>
       builder: (context, value, child) {
         return Transform.translate(
           offset: Offset(20 * (1 - value), 0),
-          child: Opacity(
-            opacity: value,
-            child: child,
-          ),
+          child: Opacity(opacity: value, child: child),
         );
       },
       child: Row(

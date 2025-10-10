@@ -4,7 +4,7 @@ import '../services/auth_service.dart';
 import '../screens/sign_in_screen.dart';
 import '../screens/main_navigation_screen.dart';
 import '../screens/email_verification_screen.dart';
-import '../screens/quiz_screen.dart';
+import '../screens/welcome_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -43,7 +43,8 @@ class AuthWrapper extends StatelessWidget {
               if (quizSnapshot.hasData && quizSnapshot.data == true) {
                 return const MainNavigationScreen();
               } else {
-                return const QuizScreen();
+                // Quiz not completed - show welcome screen first
+                return const WelcomeScreen();
               }
             },
           );

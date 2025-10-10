@@ -21,38 +21,34 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
   bool _isAnimating = false;
-  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize controllers first
     _slideController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: this,
     );
-    
+
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
+
     // Then create animations
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _slideController,
-      curve: Curves.easeOutCubic,
-    ));
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
+          CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+        );
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
-    );
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
 
-    // Mark as initialized and start animations
-    _isInitialized = true;
+    // Start animations
     _slideController.forward();
     _fadeController.forward();
   }
@@ -142,16 +138,19 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
                 const CongratulationsScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: ScaleTransition(
-                  scale: Tween<double>(begin: 0.8, end: 1.0).animate(
-                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
-                  ),
-                  child: child,
-                ),
-              );
-            },
+                  return FadeTransition(
+                    opacity: animation,
+                    child: ScaleTransition(
+                      scale: Tween<double>(begin: 0.8, end: 1.0).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOut,
+                        ),
+                      ),
+                      child: child,
+                    ),
+                  );
+                },
             transitionDuration: const Duration(milliseconds: 600),
           ),
         );
@@ -169,16 +168,7 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // Safety check to prevent rendering before data is ready
-    if (!_isInitialized || quizQuestions.isEmpty) {
-      return Scaffold(
-        backgroundColor: AppColors.lightBeige,
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
-    
+
     final question = quizQuestions[_currentQuestionIndex];
     final progress = (_currentQuestionIndex + 1) / quizQuestions.length;
 
@@ -196,12 +186,17 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
         actions: [
           // Debug: Sign out button (remove in production)
           IconButton(
-            icon: Icon(Icons.logout, color: AppColors.darkGreen.withOpacity(0.5)),
+            icon: Icon(
+              Icons.logout,
+              color: AppColors.darkGreen.withOpacity(0.5),
+            ),
             tooltip: 'Sign Out',
             onPressed: () async {
               await AuthService().signOut();
               if (context.mounted) {
-                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/', (route) => false);
               }
             },
           ),
@@ -300,32 +295,16 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
                         const SizedBox(height: 32),
 
                         // Options
-                        ...question.options.asMap().entries.map((entry) {
-                          final index = entry.key;
-                          final option = entry.value;
+                        ...question.options.map((option) {
                           final isSelected = _selectedOption == option.letter;
 
-                          return TweenAnimationBuilder<double>(
-                            duration: Duration(milliseconds: 300 + (index * 50)),
-                            curve: Curves.easeOutBack,
-                            tween: Tween<double>(begin: 0.0, end: 1.0),
-                            builder: (context, value, child) {
-                              return Transform.scale(
-                                scale: value,
-                                child: Opacity(
-                                  opacity: value,
-                                  child: child,
-                                ),
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: _OptionCard(
-                                letter: option.letter,
-                                text: option.text,
-                                isSelected: isSelected,
-                                onTap: () => _selectOption(option.letter),
-                              ),
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: _OptionCard(
+                              letter: option.letter,
+                              text: option.text,
+                              isSelected: isSelected,
+                              onTap: () => _selectOption(option.letter),
                             ),
                           );
                         }),
@@ -380,9 +359,7 @@ class _OptionCardState extends State<_OptionCard> {
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
-            color: widget.isSelected
-                ? AppColors.forestGreen
-                : Colors.white,
+            color: widget.isSelected ? AppColors.forestGreen : Colors.white,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: widget.isSelected
@@ -433,7 +410,9 @@ class _OptionCardState extends State<_OptionCard> {
                   widget.text,
                   style: GoogleFonts.poppins(
                     fontSize: 15,
-                    fontWeight: widget.isSelected ? FontWeight.w600 : FontWeight.w500,
+                    fontWeight: widget.isSelected
+                        ? FontWeight.w600
+                        : FontWeight.w500,
                     color: widget.isSelected
                         ? Colors.white
                         : AppColors.darkGreen,

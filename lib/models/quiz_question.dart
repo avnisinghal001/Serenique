@@ -22,15 +22,9 @@ class QuizOption {
   final String letter;
   final String text;
 
-  QuizOption({
-    required this.letter,
-    required this.text,
-  });
+  QuizOption({required this.letter, required this.text});
 
   Map<String, dynamic> toMap() {
-    return {
-      'letter': letter,
-      'text': text,
-    };
+    return {'letter': letter, 'text': text};
   }
 }

@@ -45,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
       if (userCredential != null && mounted) {
         final user = userCredential.user;
-        
+
         // Check email verification status
         if (user != null && !user.emailVerified) {
           // Email not verified - show verification screen
@@ -55,18 +55,17 @@ class _SignInScreenState extends State<SignInScreen> {
 
         // Check if quiz is completed
         final hasCompletedQuiz = await _authService.hasCompletedQuiz();
-        
+
         if (mounted) {
           if (!hasCompletedQuiz) {
-            // Quiz not completed - show quiz screen
-            Navigator.of(context).pushReplacementNamed('/quiz');
+            // Quiz not completed - show welcome screen first
+            Navigator.of(context).pushReplacementNamed('/welcome');
           } else {
             // Everything done - go to dashboard
             Navigator.of(context).pushReplacementNamed('/dashboard');
           }
         }
       }
-      
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -134,7 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  
+
                   // Email Label
                   Align(
                     alignment: Alignment.centerLeft,
@@ -172,14 +171,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                      if (!RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      ).hasMatch(value)) {
                         return 'Please enter a valid email';
                       }
                       return null;
                     },
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Password Label
                   Align(
                     alignment: Alignment.centerLeft,
@@ -201,7 +202,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       prefixIcon: const Icon(Icons.vpn_key_rounded),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                         ),
                         onPressed: () {
                           setState(() {
@@ -234,7 +237,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  
+
                   // Forgot Password Link
                   Align(
                     alignment: Alignment.centerRight,
@@ -257,10 +260,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  
+
                   // Log In Button
                   _isLoading
-                      ? const CircularProgressIndicator(color: AppColors.forestGreen)
+                      ? const CircularProgressIndicator(
+                          color: AppColors.forestGreen,
+                        )
                       : PopButton(
                           text: "Log in",
                           onPressed: _signIn,
@@ -268,7 +273,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           textColor: AppColors.lightBeige,
                         ),
                   const SizedBox(height: 20),
-                  
+
                   // Sign Up Link
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

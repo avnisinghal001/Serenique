@@ -51,7 +51,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         if (mounted) {
           if (hasCompletedQuiz) {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+              MaterialPageRoute(
+                builder: (context) => const MainNavigationScreen(),
+              ),
             );
           } else {
             Navigator.of(context).pushReplacement(
@@ -209,9 +211,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               // Loading indicator
               if (!_isVerified) ...[
-                CircularProgressIndicator(
-                  color: AppColors.forestGreen,
-                ),
+                CircularProgressIndicator(color: AppColors.forestGreen),
                 const SizedBox(height: 16),
                 Text(
                   'Waiting for verification...',

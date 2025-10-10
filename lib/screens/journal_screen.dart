@@ -49,7 +49,7 @@ class JournalScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Content
             Expanded(
               child: Center(
@@ -63,10 +63,7 @@ class JournalScreen extends StatelessWidget {
                       builder: (context, value, child) {
                         return Transform.scale(
                           scale: value,
-                          child: Opacity(
-                            opacity: value,
-                            child: child,
-                          ),
+                          child: Opacity(opacity: value, child: child),
                         );
                       },
                       child: Container(

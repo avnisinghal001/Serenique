@@ -27,20 +27,17 @@ class _EmailVerificationLoadingScreenState
   @override
   void initState() {
     super.initState();
-    
+
     // Pulse animation for the loading circle
     _pulseController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
-      CurvedAnimation(
-        parent: _pulseController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
-    
+
     _pulseController.repeat(reverse: true);
 
     // Check mark animation
@@ -48,7 +45,7 @@ class _EmailVerificationLoadingScreenState
       duration: const Duration(milliseconds: 800),
       vsync: this,
     );
-    
+
     _checkAnimation = CurvedAnimation(
       parent: _checkController,
       curve: Curves.elasticOut,
@@ -58,21 +55,20 @@ class _EmailVerificationLoadingScreenState
   }
 
   void _startVerificationCheck() {
-    _verificationTimer = Timer.periodic(
-      const Duration(seconds: 2),
-      (timer) async {
-        await _authService.reloadUser();
-        if (_authService.isEmailVerified) {
-          timer.cancel();
-          await _handleVerificationSuccess();
-        }
-      },
-    );
+    _verificationTimer = Timer.periodic(const Duration(seconds: 2), (
+      timer,
+    ) async {
+      await _authService.reloadUser();
+      if (_authService.isEmailVerified) {
+        timer.cancel();
+        await _handleVerificationSuccess();
+      }
+    });
   }
 
   Future<void> _handleVerificationSuccess() async {
     if (!mounted) return;
-    
+
     setState(() {
       _isVerified = true;
     });
@@ -84,7 +80,7 @@ class _EmailVerificationLoadingScreenState
     await Future.delayed(const Duration(milliseconds: 1500));
 
     if (!mounted) return;
-    
+
     // Navigate to welcome screen with slide up animation
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
@@ -95,9 +91,10 @@ class _EmailVerificationLoadingScreenState
           const end = Offset.zero;
           const curve = Curves.easeInOutCubic;
 
-          var tween = Tween(begin: begin, end: end).chain(
-            CurveTween(curve: curve),
-          );
+          var tween = Tween(
+            begin: begin,
+            end: end,
+          ).chain(CurveTween(curve: curve));
 
           return SlideTransition(
             position: animation.drive(tween),
@@ -172,14 +169,12 @@ class _EmailVerificationLoadingScreenState
                 },
               ),
               const SizedBox(height: 40),
-              
+
               // Status text
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: Text(
-                  _isVerified
-                      ? 'Email Verified! ✨'
-                      : 'Verifying Your Email',
+                  _isVerified ? 'Email Verified! ✨' : 'Verifying Your Email',
                   key: ValueKey(_isVerified),
                   style: GoogleFonts.poppins(
                     fontSize: 24,
@@ -190,7 +185,7 @@ class _EmailVerificationLoadingScreenState
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // Subtitle
               if (!_isVerified)
                 Padding(
@@ -205,9 +200,9 @@ class _EmailVerificationLoadingScreenState
                     textAlign: TextAlign.center,
                   ),
                 ),
-              
+
               if (!_isVerified) const SizedBox(height: 32),
-              
+
               // Resend email button
               if (!_isVerified)
                 TextButton.icon(
@@ -241,7 +236,10 @@ class _EmailVerificationLoadingScreenState
                       }
                     }
                   },
-                  icon: Icon(Icons.email_outlined, color: AppColors.forestGreen),
+                  icon: Icon(
+                    Icons.email_outlined,
+                    color: AppColors.forestGreen,
+                  ),
                   label: Text(
                     'Resend Email',
                     style: GoogleFonts.poppins(

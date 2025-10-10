@@ -33,8 +33,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _isConfirmPasswordVisible = false;
   bool _isLoading = false;
 
-  final List<String> _genders = ['Male', 'Female', 'Other', 'Prefer not to say'];
-  final List<String> _professions = ['Student', 'Working Professional', 'Other'];
+  final List<String> _genders = [
+    'Male',
+    'Female',
+    'Other',
+    'Prefer not to say',
+  ];
+  final List<String> _professions = [
+    'Student',
+    'Working Professional',
+    'Other',
+  ];
 
   @override
   void dispose() {
@@ -201,7 +210,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       duration: const Duration(milliseconds: 300),
       height: 4,
       decoration: BoxDecoration(
-        color: isActive ? AppColors.forestGreen : AppColors.sageGreen.withOpacity(0.3),
+        color: isActive
+            ? AppColors.forestGreen
+            : AppColors.sageGreen.withOpacity(0.3),
         borderRadius: BorderRadius.circular(2),
       ),
     );
@@ -244,13 +255,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                borderSide: BorderSide(
+                  color: AppColors.sageGreen.withOpacity(0.3),
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: AppColors.forestGreen, width: 2),
               ),
-              prefixIcon: Icon(Icons.person_outline, color: AppColors.forestGreen),
+              prefixIcon: Icon(
+                Icons.person_outline,
+                color: AppColors.forestGreen,
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -269,13 +285,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                borderSide: BorderSide(
+                  color: AppColors.sageGreen.withOpacity(0.3),
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: AppColors.forestGreen, width: 2),
               ),
-              prefixIcon: Icon(Icons.cake_outlined, color: AppColors.forestGreen),
+              prefixIcon: Icon(
+                Icons.cake_outlined,
+                color: AppColors.forestGreen,
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -293,7 +314,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                borderSide: BorderSide(
+                  color: AppColors.sageGreen.withOpacity(0.3),
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -302,10 +325,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               prefixIcon: Icon(Icons.wc_outlined, color: AppColors.forestGreen),
             ),
             items: _genders.map((gender) {
-              return DropdownMenuItem(
-                value: gender,
-                child: Text(gender),
-              );
+              return DropdownMenuItem(value: gender, child: Text(gender));
             }).toList(),
             onChanged: (value) {
               setState(() {
@@ -328,13 +348,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                borderSide: BorderSide(
+                  color: AppColors.sageGreen.withOpacity(0.3),
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: AppColors.forestGreen, width: 2),
               ),
-              prefixIcon: Icon(Icons.work_outline, color: AppColors.forestGreen),
+              prefixIcon: Icon(
+                Icons.work_outline,
+                color: AppColors.forestGreen,
+              ),
             ),
             items: _professions.map((profession) {
               return DropdownMenuItem(
@@ -376,10 +401,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: TextButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const SignInScreen(),
-                            ),
-                          );
+                  MaterialPageRoute(builder: (context) => const SignInScreen()),
+                );
               },
               child: RichText(
                 text: TextSpan(
@@ -446,19 +469,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                  borderSide: BorderSide(
+                    color: AppColors.sageGreen.withOpacity(0.3),
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.forestGreen, width: 2),
+                  borderSide: BorderSide(
+                    color: AppColors.forestGreen,
+                    width: 2,
+                  ),
                 ),
-                prefixIcon: Icon(Icons.email_outlined, color: AppColors.forestGreen),
+                prefixIcon: Icon(
+                  Icons.email_outlined,
+                  color: AppColors.forestGreen,
+                ),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return 'Please enter your email';
                 }
-                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value.trim())) {
+                if (!RegExp(
+                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                ).hasMatch(value.trim())) {
                   return 'Please enter a valid email';
                 }
                 return null;
@@ -480,16 +513,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                  borderSide: BorderSide(
+                    color: AppColors.sageGreen.withOpacity(0.3),
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.forestGreen, width: 2),
+                  borderSide: BorderSide(
+                    color: AppColors.forestGreen,
+                    width: 2,
+                  ),
                 ),
-                prefixIcon: Icon(Icons.lock_outline, color: AppColors.forestGreen),
+                prefixIcon: Icon(
+                  Icons.lock_outline,
+                  color: AppColors.forestGreen,
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    _isPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: AppColors.forestGreen,
                   ),
                   onPressed: () {
@@ -525,16 +568,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.sageGreen.withOpacity(0.3)),
+                  borderSide: BorderSide(
+                    color: AppColors.sageGreen.withOpacity(0.3),
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.forestGreen, width: 2),
+                  borderSide: BorderSide(
+                    color: AppColors.forestGreen,
+                    width: 2,
+                  ),
                 ),
-                prefixIcon: Icon(Icons.lock_outline, color: AppColors.forestGreen),
+                prefixIcon: Icon(
+                  Icons.lock_outline,
+                  color: AppColors.forestGreen,
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isConfirmPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    _isConfirmPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: AppColors.forestGreen,
                   ),
                   onPressed: () {
