@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/app_colors.dart';
-import 'dashboard_screen.dart';
-import 'chat_screen.dart';
-import 'journal_screen.dart';
-import 'toolkit_screen.dart';
-import 'profile_screen.dart';
+import 'package:workmanager/workmanager.dart'; // Import workmanager
+import 'package:serenique/utils/app_colors.dart';
+import 'package:serenique/screens/dashboard_screen.dart';
+import 'package:serenique/screens/chat_screen.dart';
+import 'package:serenique/screens/journal_screen.dart';
+import 'package:serenique/screens/toolkit_screen.dart';
+import 'package:serenique/screens/profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
+  
   const MainNavigationScreen({super.key});
 
   @override
@@ -31,6 +33,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
   void initState() {
     super.initState();
     _pageController = PageController();
+    // When this screen loads, schedule the repeating background task
+    Workmanager().registerPeriodicTask(
+      "affirmation-task-id", // A unique name for the task
+      "showAffirmationNotification", // The name of the task defined in main.dart
+      frequency: Duration(minutes: 15), // Minimum is 15 minutes for Android
+    );
   }
 
   @override
